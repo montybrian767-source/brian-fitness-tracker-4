@@ -1,14 +1,9 @@
-# Brian Fitness Tracker 2.0 Recovery Build
+# Brian Fitness Tracker 2.0 Professional Build
 
-Restores workout data, image map, exercise images, and a working commercial-style Streamlit app.
+Fresh working build with complete workout data, image map, and individual exercise images.
 
-Important files:
-- `data/workouts.csv`
-- `data/workout_log.csv`
-- `data/exercise_image_map.csv`
-- `assets/exercises/`
-
-Run locally:
+## Run locally
 ```bash
-python -m streamlit run app.py
+pip install -r requirements.txt
+streamlit run app.py
 ```
