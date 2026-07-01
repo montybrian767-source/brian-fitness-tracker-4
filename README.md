@@ -1,23 +1,14 @@
-# Brian Fitness Tracker 2.0 - Fresh Working Build
+# Brian Fitness Tracker 2.0 Recovery Build
 
-This is a clean working Streamlit build focused on stability.
+Restores workout data, image map, exercise images, and a working commercial-style Streamlit app.
 
-## Includes
-- Working workout tracker
-- Real `assets/exercises/` image files included
+Important files:
+- `data/workouts.csv`
+- `data/workout_log.csv`
 - `data/exercise_image_map.csv`
-- Saves completed workouts to `data/workout_log.csv`
-- History and export page
-- Image Library test page
+- `assets/exercises/`
 
-## Run locally
-Double-click `run_app.bat`, or run:
-
+Run locally:
 ```bash
-python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
-
-## GitHub / Streamlit Cloud
-Upload everything inside this folder to your GitHub repo, not the ZIP.
-Make sure `app.py` is at the top level.
