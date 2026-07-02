@@ -1,14 +1,18 @@
-# Brian Fitness Tracker X — Sprint X.5.1 Workout Command Center Fix
+# Brian Fitness Tracker X — Sprint X.6 Elite Workout Experience
 
-This update makes the new Smart Workout experience visible inside the main Today's Workout page.
+## What changed
+- Rebuilt Today's Workout into an elite one-exercise command center.
+- Larger exercise image area.
+- Previous/best weight cards.
+- Large COMPLETE SET button.
+- Rest timer panel.
+- Workout progress bar and finish workout summary.
+- Keeps all existing data files, images, nutrition, supplements, progress, and AI Coach.
 
-## Changed
-- Today's Workout now opens the Workout Command Center
-- Removed duplicate Smart Workout navigation item
-- Large exercise image + AI coach + progress bar
-- Next/previous exercise flow
-- Rest timer panel
-- Keeps dashboard, logs, nutrition, supplements, images, and data files intact
-
-## Upload
-Upload all contents to GitHub, then reboot/redeploy Streamlit.
+## What to test
+1. Open Today's Workout.
+2. Pick today's day.
+3. Confirm the large exercise image appears.
+4. Complete one set.
+5. Confirm the app moves to the next exercise and workout_log.csv updates.
+6. Click Finish Workout.
