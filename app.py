@@ -154,9 +154,9 @@ section[data-testid="stSidebar"] label[data-baseweb="radio"] > div:first-child {
 st.markdown(CSS, unsafe_allow_html=True)
 
 # Sidebar
-st.sidebar.markdown("## 🏋️ Brian Fit 2.3")
-st.sidebar.caption("2.3 Supplement Engine")
-page = st.sidebar.radio("Navigation", ["Dashboard","Today's Workout","Workout Builder","Weekly Plan","Nutrition","Supplements","Body Stats","Exercise Library","History","Data Safety"], index=0)
+st.sidebar.markdown("## 🏋️ Brian Fit 2.4")
+st.sidebar.caption("2.4 Progress Engine")
+page = st.sidebar.radio("Navigation", ["Dashboard","Today's Workout","Workout Builder","Weekly Plan","Nutrition","Supplements","Body Stats","Progress Analytics","Exercise Library","History","Data Safety"], index=0)
 st.sidebar.markdown('<div class="safe"><b>✅ Data safe</b><br><br><span class="small">Workout history saves to</span><br><b>data/workout_log.csv</b></div>', unsafe_allow_html=True)
 
 workouts = load_workouts()
@@ -175,7 +175,7 @@ if page == "Dashboard":
     cal_today = int(pd.to_numeric(nt.get('calories', pd.Series(dtype=float)), errors='coerce').fillna(0).sum()) if not nt.empty else 0
     protein_today = int(pd.to_numeric(nt.get('protein_g', pd.Series(dtype=float)), errors='coerce').fillna(0).sum()) if not nt.empty else 0
     water_today = int(pd.to_numeric(nt.get('water_oz', pd.Series(dtype=float)), errors='coerce').fillna(0).sum()) if not nt.empty else 0
-    st.markdown(f'<div class="hero"><div class="kicker">Brian Fitness Tracker 2.3</div><div class="title">Nutrition + Workout Dashboard</div><div class="sub">Today is {today} • {today_df.muscle_group.iloc[0] if not today_df.empty else "Rest / Recovery"}</div></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Nutrition + Workout Dashboard</div><div class="sub">Today is {today} • {today_df.muscle_group.iloc[0] if not today_df.empty else "Rest / Recovery"}</div></div>', unsafe_allow_html=True)
     c1,c2,c3,c4=st.columns(4)
     for c,label,val in [(c1,'Sessions',total_sessions),(c2,'Total Volume',f'{total_volume:,} lbs'),(c3,'Protein Today',f'{protein_today}g'),(c4,'Calories Today',cal_today)]:
         c.markdown(f'<div class="metric-card"><div class="metric-label">{label}</div><div class="metric-value">{val}</div></div>', unsafe_allow_html=True)
@@ -231,7 +231,7 @@ elif page == "Today's Workout":
 
 
 elif page == "Workout Builder":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.3</div><div class="title">Workout Builder</div><div class="sub">Add exercises to your weekly plan without editing CSV files.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Workout Builder</div><div class="sub">Add exercises to your weekly plan without editing CSV files.</div></div>', unsafe_allow_html=True)
     st.info("Use this page to add a new exercise to the weekly schedule. It updates data/workouts.csv.")
     library = workouts.copy()
     search = st.text_input("Search current exercise library", placeholder="lat pulldown, chest press, row...")
@@ -280,7 +280,7 @@ elif page == "Workout Builder":
         st.code(f"{suggested}.png")
 
 elif page == "Weekly Plan":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.3</div><div class="title">Weekly Plan</div><div class="sub">Days, muscle groups, and exercise count</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Weekly Plan</div><div class="sub">Days, muscle groups, and exercise count</div></div>', unsafe_allow_html=True)
     for day in days:
         d=workouts[workouts.day==day]
         group=d.muscle_group.iloc[0] if not d.empty else 'Rest'
@@ -290,7 +290,7 @@ elif page == "Weekly Plan":
 
 
 elif page == "Nutrition":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.3</div><div class="title">Nutrition Engine</div><div class="sub">Track calories, protein, macros, water, and meals.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Nutrition Engine</div><div class="sub">Track calories, protein, macros, water, and meals.</div></div>', unsafe_allow_html=True)
     cols = ['date','meal','calories','protein_g','carbs_g','fat_g','water_oz','notes']
     nut = read_csv_safe(NUTRITION, cols)
     today_s = str(date.today())
@@ -326,7 +326,7 @@ elif page == "Nutrition":
     if NUTRITION.exists(): st.download_button('Export nutrition_log.csv', NUTRITION.read_bytes(), file_name='nutrition_log.csv')
 
 elif page == "Supplements":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.3</div><div class="title">Supplement Engine</div><div class="sub">Track supplement consistency, timing, and weekly completion. Not medical advice.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Supplement Engine</div><div class="sub">Track supplement consistency, timing, and weekly completion. Not medical advice.</div></div>', unsafe_allow_html=True)
     cols=['date','creatine','protein_powder','multivitamin','fish_oil','pre_workout','magnesium','vitamin_d','electrolytes','notes']
     plan_cols=['supplement','category','default_time','target_days_per_week','notes']
     sup=read_csv_safe(SUPPLEMENTS, cols)
@@ -406,7 +406,7 @@ elif page == "Supplements":
             st.download_button('Export supplement_log.csv', SUPPLEMENTS.read_bytes(), file_name='supplement_log.csv')
 
 elif page == "Body Stats":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.3</div><div class="title">Body Stats</div><div class="sub">Track body weight, goal weight, waist, and notes.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Body Stats</div><div class="sub">Track body weight, goal weight, waist, and notes.</div></div>', unsafe_allow_html=True)
     cols=['date','body_weight_lbs','goal_weight_lbs','waist_in','notes']
     body=read_csv_safe(BODY, cols)
     c1,c2,c3,c4=st.columns(4)
@@ -427,8 +427,104 @@ elif page == "Body Stats":
         if not chart.empty:
             st.line_chart(chart.set_index('date')['body_weight_lbs'])
 
+
+elif page == "Progress Analytics":
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Progress Engine</div><div class="sub">Personal records, volume trends, body stats, nutrition, and consistency analytics.</div></div>', unsafe_allow_html=True)
+    log = load_log()
+    nut = read_csv_safe(NUTRITION, ['date','meal','calories','protein_g','carbs_g','fat_g','water_oz','notes'])
+    body = read_csv_safe(BODY, ['date','body_weight_lbs','goal_weight_lbs','waist_in','notes'])
+    sup = read_csv_safe(SUPPLEMENTS, ['date','creatine','protein_powder','multivitamin','fish_oil','pre_workout','magnesium','vitamin_d','electrolytes','notes'])
+
+    # Normalize numeric fields safely
+    if not log.empty:
+        for col in ['weight_lbs','reps','volume','rpe','pain']:
+            if col in log.columns:
+                log[col] = pd.to_numeric(log[col], errors='coerce').fillna(0)
+        log['date'] = log['date'].astype(str)
+    if not nut.empty:
+        for col in ['calories','protein_g','carbs_g','fat_g','water_oz']:
+            if col in nut.columns:
+                nut[col] = pd.to_numeric(nut[col], errors='coerce').fillna(0)
+        nut['date'] = nut['date'].astype(str)
+    if not body.empty:
+        for col in ['body_weight_lbs','goal_weight_lbs','waist_in']:
+            if col in body.columns:
+                body[col] = pd.to_numeric(body[col], errors='coerce')
+        body['date'] = body['date'].astype(str)
+
+    total_sessions = log['date'].nunique() if not log.empty and 'date' in log.columns else 0
+    total_volume = int(log['volume'].sum()) if not log.empty and 'volume' in log.columns else 0
+    avg_rpe = float(log['rpe'].mean()) if not log.empty and 'rpe' in log.columns else 0
+    avg_pain = float(log['pain'].mean()) if not log.empty and 'pain' in log.columns else 0
+    pr_count = log.groupby('exercise')['weight_lbs'].max().shape[0] if not log.empty and 'exercise' in log.columns else 0
+    comeback_score = min(100, int((total_sessions * 5) + (min(total_volume, 50000) / 1000) + (pr_count * 2) - (avg_pain * 3))) if total_sessions else 0
+
+    m1,m2,m3,m4 = st.columns(4)
+    m1.markdown(f'<div class="metric-card"><div class="metric-label">Comeback Score</div><div class="metric-value">{comeback_score}/100</div></div>', unsafe_allow_html=True)
+    m2.markdown(f'<div class="metric-card"><div class="metric-label">Workout Sessions</div><div class="metric-value">{total_sessions}</div></div>', unsafe_allow_html=True)
+    m3.markdown(f'<div class="metric-card"><div class="metric-label">Total Volume</div><div class="metric-value">{total_volume:,} lbs</div></div>', unsafe_allow_html=True)
+    m4.markdown(f'<div class="metric-card"><div class="metric-label">Avg Knee Pain</div><div class="metric-value">{avg_pain:.1f}/10</div></div>', unsafe_allow_html=True)
+
+    tab1, tab2, tab3, tab4 = st.tabs(['Strength', 'Body', 'Nutrition', 'Supplements'])
+    with tab1:
+        if log.empty:
+            st.info('No workout history yet. Save workouts to unlock strength analytics.')
+        else:
+            st.markdown('### Volume by Day')
+            daily = log.groupby('date', as_index=False)['volume'].sum().sort_values('date')
+            st.line_chart(daily.set_index('date')['volume'])
+            c1, c2 = st.columns(2)
+            with c1:
+                st.markdown('### Personal Records')
+                prs = log.groupby('exercise', as_index=False).agg(best_weight=('weight_lbs','max'), best_reps=('reps','max'), total_volume=('volume','sum')).sort_values(['best_weight','total_volume'], ascending=False)
+                st.dataframe(prs, use_container_width=True)
+            with c2:
+                st.markdown('### Top Exercises by Volume')
+                top = log.groupby('exercise', as_index=False)['volume'].sum().sort_values('volume', ascending=False).head(15)
+                st.bar_chart(top.set_index('exercise')['volume'])
+            st.markdown('### Coach Notes')
+            st.markdown('<div class="side-card"><div class="side-title">Smart Progress Read</div><div class="small">If you complete all target reps with pain under 3/10 and RPE under 8, increase next week by 5 lb for upper-body machines or 2.5 lb for cable movements.</div></div>', unsafe_allow_html=True)
+    with tab2:
+        if body.empty:
+            st.info('No body stats yet. Use Body Stats page to start tracking weight and waist.')
+        else:
+            st.markdown('### Body Weight Trend')
+            bw = body.dropna(subset=['body_weight_lbs']).sort_values('date')
+            if not bw.empty:
+                st.line_chart(bw.set_index('date')['body_weight_lbs'])
+            st.markdown('### Body Stats Table')
+            st.dataframe(body.tail(100), use_container_width=True)
+    with tab3:
+        if nut.empty:
+            st.info('No nutrition entries yet. Use Nutrition page to start tracking calories and protein.')
+        else:
+            st.markdown('### Daily Nutrition Totals')
+            daily_nut = nut.groupby('date', as_index=False).agg(calories=('calories','sum'), protein_g=('protein_g','sum'), water_oz=('water_oz','sum')).sort_values('date')
+            c1,c2 = st.columns(2)
+            with c1:
+                st.line_chart(daily_nut.set_index('date')['protein_g'])
+                st.caption('Protein grams per day')
+            with c2:
+                st.line_chart(daily_nut.set_index('date')['calories'])
+                st.caption('Calories per day')
+            st.dataframe(daily_nut.tail(30), use_container_width=True)
+    with tab4:
+        if sup.empty:
+            st.info('No supplement entries yet. Use Supplements page to start tracking consistency.')
+        else:
+            calc=sup.copy()
+            fields=['creatine','protein_powder','multivitamin','fish_oil','pre_workout','magnesium','vitamin_d','electrolytes']
+            for field in fields:
+                if field in calc.columns:
+                    calc[field]=calc[field].astype(str).str.lower().isin(['true','1','yes']).astype(int)
+            totals=calc[[f for f in fields if f in calc.columns]].sum().sort_values(ascending=False).reset_index()
+            totals.columns=['supplement','times_taken']
+            st.markdown('### Supplement Consistency')
+            st.bar_chart(totals.set_index('supplement')['times_taken'])
+            st.dataframe(totals, use_container_width=True)
+
 elif page == "Exercise Library":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.3</div><div class="title">Exercise Image Library</div><div class="sub">Checks assets/exercises and data/exercise_image_map.csv</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Exercise Image Library</div><div class="sub">Checks assets/exercises and data/exercise_image_map.csv</div></div>', unsafe_allow_html=True)
     files = sorted(list(ASSETS.glob('*.png')) + list(ASSETS.glob('*.jpg')) + list(ASSETS.glob('*.jpeg')))
     st.write(f"Images folder: `{ASSETS}`")
     st.write(f"Image files found: **{len(files)}**")
@@ -445,13 +541,13 @@ elif page == "Exercise Library":
                 st.caption(p.name)
 
 elif page == "History":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.3</div><div class="title">Workout History</div><div class="sub">Saved completed sets</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Workout History</div><div class="sub">Saved completed sets</div></div>', unsafe_allow_html=True)
     log=load_log()
     if log.empty: st.info('No workouts saved yet.')
     else: st.dataframe(log.tail(200), use_container_width=True)
 
 elif page == "Data Safety":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.3</div><div class="title">Data Safety</div><div class="sub">Important files before updates</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 2.4</div><div class="title">Data Safety</div><div class="sub">Important files before updates</div></div>', unsafe_allow_html=True)
     st.code('data/workout_log.csv\ndata/workouts.csv\ndata/exercise_image_map.csv\ndata/nutrition_log.csv\ndata/body_stats.csv\ndata/supplement_log.csv\ndata/supplement_plan.csv\nassets/exercises/')
     if LOG.exists():
         st.download_button('Export workout_log.csv', LOG.read_bytes(), file_name='workout_log.csv')
