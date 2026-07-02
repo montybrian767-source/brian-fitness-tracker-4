@@ -1,4 +1,4 @@
-
+from pages.dashboard import render_dashboard
 from pathlib import Path
 from datetime import date
 import base64
@@ -319,6 +319,7 @@ log = load_log()
 days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 
 if page == "Dashboard":
+    render_dashboard()
     today = date.today().strftime('%A')
     today_df = workouts[workouts.day==today]
     total_sessions = log['date'].nunique() if not log.empty and 'date' in log else 0
