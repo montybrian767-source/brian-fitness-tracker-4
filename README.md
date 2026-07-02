@@ -1,27 +1,14 @@
-# Brian Fitness Tracker X — Sprint X.5 Smart Workout Experience
+# Brian Fitness Tracker X — Sprint X.5.1 Workout Command Center Fix
 
-This build is based on the working Sprint X.4.1 dashboard fix and adds a new Smart Workout page.
+This update makes the new Smart Workout experience visible inside the main Today's Workout page.
 
-## Added
-- Smart Workout command center
-- Large exercise image display
-- One-exercise focus workflow
-- Complete Set logging
+## Changed
+- Today's Workout now opens the Workout Command Center
+- Removed duplicate Smart Workout navigation item
+- Large exercise image + AI coach + progress bar
+- Next/previous exercise flow
 - Rest timer panel
-- Previous/next exercise buttons
-- Workout progress bar
-- AI coach notes inside workout flow
-- Export workout log button
+- Keeps dashboard, logs, nutrition, supplements, images, and data files intact
 
-## Important files
-- `app.py`
-- `data/workouts.csv`
-- `data/workout_log.csv`
-- `data/exercise_image_map.csv`
-- `assets/exercises/`
-
-## Run locally
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
+## Upload
+Upload all contents to GitHub, then reboot/redeploy Streamlit.

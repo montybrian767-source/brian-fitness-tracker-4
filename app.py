@@ -352,9 +352,9 @@ div[role="radiogroup"] [data-testid="stMarkdownContainer"] {
 st.markdown(CSS, unsafe_allow_html=True)
 
 # Navigation — desktop sidebar + phone-friendly top menu
-nav_options = ["Dashboard","Today's Workout","Smart Workout","Gym Mode","AI Coach","Workout Builder","Weekly Plan","System Check","Nutrition","Supplements","Body Stats","Progress Analytics","Exercise Library","History","Data Safety"]
+nav_options = ["Dashboard","Today's Workout","Gym Mode","AI Coach","Workout Builder","Weekly Plan","System Check","Nutrition","Supplements","Body Stats","Progress Analytics","Exercise Library","History","Data Safety"]
 st.sidebar.markdown("## 🏋️ Brian Fit 3.3")
-st.sidebar.caption("Daily Use Stability")
+st.sidebar.caption("X.5.1 Workout Command Center")
 st.sidebar.markdown('<div class="safe"><b>✅ Data safe</b><br><br><span class="small">Workout history saves to</span><br><b>data/workout_log.csv</b></div>', unsafe_allow_html=True)
 
 st.markdown('<div class="mobile-nav-title">📱 Quick Navigation</div>', unsafe_allow_html=True)
@@ -464,49 +464,6 @@ if page == "Dashboard":
         ''', unsafe_allow_html=True)
 
 elif page == "Today's Workout":
-    day = st.selectbox("Workout Day", days, index=date.today().weekday() if date.today().weekday()<7 else 0)
-    active = workouts[workouts.day==day].reset_index(drop=True)
-    group = active.muscle_group.iloc[0] if not active.empty else 'Recovery / Rest'
-    st.markdown(f'<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">{day} — {group}</div><div><span class="badge green">{len(active)} exercises</span><span class="badge">Protect knee • controlled form</span></div></div>', unsafe_allow_html=True)
-    if active.empty:
-        st.info("No exercises scheduled for this day.")
-    right = st.container()
-    total_live = 0
-    for i,row in active.iterrows():
-        sets = int(row.target_sets) if str(row.target_sets).isdigit() else 3
-        st.markdown('<div class="exercise-card">', unsafe_allow_html=True)
-        st.markdown(f'<div class="exercise-head"><div class="num">{i+1}</div><div><div class="ex-title">{row.exercise}</div><span class="badge">Target: {row.target_sets} × {row.target_reps}</span><span class="badge green">{row.muscle_group}</span></div></div>', unsafe_allow_html=True)
-        col_img, col_sets = st.columns([.9,1.45])
-        with col_img:
-            st.markdown(f'<div class="exercise-photo-wrap">{img_tag(image_path(row))}</div>', unsafe_allow_html=True)
-            st.caption(f"Previous best: {row.base_weight} lbs")
-        with col_sets:
-            st.markdown('<div class="set-header"><div>SET</div><div>WEIGHT</div><div>REPS</div><div>RPE</div><div>NOTES</div><div>VOLUME</div></div>', unsafe_allow_html=True)
-            save_rows=[]; ex_vol=0
-            for s in range(1, sets+1):
-                cols=st.columns([.35,1,1,1,1.4,.8])
-                cols[0].markdown(f'<div class="num" style="width:28px;height:28px;font-size:.85rem">{s}</div>', unsafe_allow_html=True)
-                wt = cols[1].number_input('Weight', min_value=0.0, value=float(row.base_weight), step=5.0, key=f'w_{i}_{s}', label_visibility='collapsed')
-                reps_default = 12
-                try:
-                    reps_default = int(str(row.target_reps).split('-')[-1].split()[0])
-                except: pass
-                reps = cols[2].number_input('Reps', min_value=0, value=reps_default, step=1, key=f'r_{i}_{s}', label_visibility='collapsed')
-                rpe = cols[3].number_input('RPE', min_value=0.0, max_value=10.0, value=7.0, step=.5, key=f'rpe_{i}_{s}', label_visibility='collapsed')
-                notes = cols[4].text_input('Notes', value='felt good' if s==1 else '', key=f'n_{i}_{s}', label_visibility='collapsed')
-                vol = int(wt*reps); ex_vol += vol; total_live += vol
-                cols[5].markdown(f'<div class="volume">{vol:,} lbs</div>', unsafe_allow_html=True)
-                save_rows.append({'date':str(date.today()),'day':day,'exercise':row.exercise,'set_number':s,'weight_lbs':wt,'reps':reps,'rpe':rpe,'pain':0,'notes':notes,'volume':vol})
-            if st.button(f"💾 Save {row.exercise}", key=f'save_{i}'):
-                save_log(save_rows)
-                st.success(f"Saved {row.exercise}")
-        st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="side-card"><div class="side-title">Workout Summary</div><div>Total exercises: <b>{len(active)}</b></div><div>Live volume: <b class="volume">{total_live:,} lbs</b></div></div>', unsafe_allow_html=True)
-
-
-
-
-elif page == "Smart Workout":
     today = date.today().strftime('%A')
     day = st.selectbox("Workout Day", days, index=date.today().weekday() if date.today().weekday()<7 else 0, key="smart_day")
     active = workouts[workouts.day == day].reset_index(drop=True)
@@ -522,9 +479,9 @@ elif page == "Smart Workout":
     <div class="smart-shell">
       <div class="smart-top">
         <div>
-          <div class="smart-kicker">Brian Fitness Tracker X • Smart Workout</div>
+          <div class="smart-kicker">Brian Fitness Tracker X • Workout Command Center</div>
           <div class="smart-title">{day} — {group}</div>
-          <div class="smart-sub">One command center for today’s training: image, logging, rest timer, progress, and coach notes.</div>
+          <div class="smart-sub">Live training command center: image, set logging, rest timer, progress, and coach notes.</div>
         </div>
         <div>
           <div class="smart-score">{recovery_score}%</div>
@@ -617,11 +574,13 @@ elif page == "Smart Workout":
             st.markdown(f'<div class="smart-card" style="padding:14px 18px;margin:8px 0;"><b>{status} {idx+1}. {ex.exercise}</b> <span class="smart-muted">• {ex.target_sets} × {ex.target_reps} • {ex.muscle_group}</span></div>', unsafe_allow_html=True)
 
 
+
+
 elif page == "Gym Mode":
     day = st.selectbox("Workout Day", days, index=date.today().weekday() if date.today().weekday()<7 else 0, key="gym_day")
     active = workouts[workouts.day==day].reset_index(drop=True)
     group = active.muscle_group.iloc[0] if not active.empty else 'Recovery / Rest'
-    st.markdown(f'<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Gym Mode</div><div class="sub">{day} — {group}. One exercise at a time with larger controls.</div></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Gym Mode</div><div class="sub">{day} — {group}. One exercise at a time with larger controls.</div></div>', unsafe_allow_html=True)
     if active.empty:
         st.success("Recovery day. Mobility, walking, sauna, swimming, or rest.")
     else:
@@ -656,7 +615,7 @@ elif page == "Gym Mode":
 
 
 elif page == "AI Coach":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">AI Coach</div><div class="sub">Rule-based coaching recommendations from your workout, recovery, nutrition, and supplement data. No API key needed.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">AI Coach</div><div class="sub">Rule-based coaching recommendations from your workout, recovery, nutrition, and supplement data. No API key needed.</div></div>', unsafe_allow_html=True)
 
     log = load_log()
     workouts_df = load_workouts()
@@ -783,7 +742,7 @@ elif page == "AI Coach":
 
 
 elif page == "Workout Builder":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Workout Builder</div><div class="sub">Add exercises to your weekly plan without editing CSV files.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Workout Builder</div><div class="sub">Add exercises to your weekly plan without editing CSV files.</div></div>', unsafe_allow_html=True)
     st.info("Use this page to add a new exercise to the weekly schedule. It updates data/workouts.csv.")
     library = workouts.copy()
     search = st.text_input("Search current exercise library", placeholder="lat pulldown, chest press, row...")
@@ -832,7 +791,7 @@ elif page == "Workout Builder":
         st.code(f"{suggested}.png")
 
 elif page == "Weekly Plan":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Weekly Plan</div><div class="sub">Days, muscle groups, and exercise count</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Weekly Plan</div><div class="sub">Days, muscle groups, and exercise count</div></div>', unsafe_allow_html=True)
     for day in days:
         d=workouts[workouts.day==day]
         group=d.muscle_group.iloc[0] if not d.empty else 'Rest'
@@ -842,7 +801,7 @@ elif page == "Weekly Plan":
 
 
 elif page == "System Check":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">System Check + Backup</div><div class="sub">Daily-use stability tools: validate workouts, images, files, and backups.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">System Check + Backup</div><div class="sub">Daily-use stability tools: validate workouts, images, files, and backups.</div></div>', unsafe_allow_html=True)
     issues=[]
     st.markdown("## Required Files")
     required_files=[WORKOUTS, LOG, MAP, NUTRITION, BODY, SUPPLEMENTS]
@@ -900,7 +859,7 @@ elif page == "System Check":
 
 
 elif page == "Nutrition":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Nutrition Engine</div><div class="sub">Track calories, protein, macros, water, and meals.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Nutrition Engine</div><div class="sub">Track calories, protein, macros, water, and meals.</div></div>', unsafe_allow_html=True)
     cols = ['date','meal','calories','protein_g','carbs_g','fat_g','water_oz','notes']
     nut = read_csv_safe(NUTRITION, cols)
     today_s = str(date.today())
@@ -936,7 +895,7 @@ elif page == "Nutrition":
     if NUTRITION.exists(): st.download_button('Export nutrition_log.csv', NUTRITION.read_bytes(), file_name='nutrition_log.csv')
 
 elif page == "Supplements":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Supplement Engine</div><div class="sub">Track supplement consistency, timing, and weekly completion. Not medical advice.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Supplement Engine</div><div class="sub">Track supplement consistency, timing, and weekly completion. Not medical advice.</div></div>', unsafe_allow_html=True)
     cols=['date','creatine','protein_powder','multivitamin','fish_oil','pre_workout','magnesium','vitamin_d','electrolytes','notes']
     plan_cols=['supplement','category','default_time','target_days_per_week','notes']
     sup=read_csv_safe(SUPPLEMENTS, cols)
@@ -1028,7 +987,7 @@ elif page == "Supplements":
             st.download_button('Export supplement_log.csv', SUPPLEMENTS.read_bytes(), file_name='supplement_log.csv')
 
 elif page == "Body Stats":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Body Stats</div><div class="sub">Track body weight, goal weight, waist, and notes.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Body Stats</div><div class="sub">Track body weight, goal weight, waist, and notes.</div></div>', unsafe_allow_html=True)
     cols=['date','body_weight_lbs','goal_weight_lbs','waist_in','notes']
     body=read_csv_safe(BODY, cols)
     c1,c2,c3,c4=st.columns(4)
@@ -1051,7 +1010,7 @@ elif page == "Body Stats":
 
 
 elif page == "Progress Analytics":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Progress Engine</div><div class="sub">Personal records, volume trends, body stats, nutrition, and consistency analytics.</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Progress Engine</div><div class="sub">Personal records, volume trends, body stats, nutrition, and consistency analytics.</div></div>', unsafe_allow_html=True)
     log = load_log()
     nut = read_csv_safe(NUTRITION, ['date','meal','calories','protein_g','carbs_g','fat_g','water_oz','notes'])
     body = read_csv_safe(BODY, ['date','body_weight_lbs','goal_weight_lbs','waist_in','notes'])
@@ -1146,7 +1105,7 @@ elif page == "Progress Analytics":
             st.dataframe(totals, use_container_width=True)
 
 elif page == "Exercise Library":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Exercise Image Library</div><div class="sub">Checks assets/exercises and data/exercise_image_map.csv</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Exercise Image Library</div><div class="sub">Checks assets/exercises and data/exercise_image_map.csv</div></div>', unsafe_allow_html=True)
     files = sorted(list(ASSETS.glob('*.png')) + list(ASSETS.glob('*.jpg')) + list(ASSETS.glob('*.jpeg')))
     st.write(f"Images folder: `{ASSETS}`")
     st.write(f"Image files found: **{len(files)}**")
@@ -1163,13 +1122,13 @@ elif page == "Exercise Library":
                 st.caption(p.name)
 
 elif page == "History":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Workout History</div><div class="sub">Saved completed sets</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Workout History</div><div class="sub">Saved completed sets</div></div>', unsafe_allow_html=True)
     log=load_log()
     if log.empty: st.info('No workouts saved yet.')
     else: st.dataframe(log.tail(200), use_container_width=True)
 
 elif page == "Data Safety":
-    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Data Safety</div><div class="sub">Important files before updates</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><div class="kicker">Brian Fitness Tracker X</div><div class="title">Data Safety</div><div class="sub">Important files before updates</div></div>', unsafe_allow_html=True)
     st.code('data/workout_log.csv\ndata/workouts.csv\ndata/exercise_image_map.csv\ndata/nutrition_log.csv\ndata/body_stats.csv\ndata/supplement_log.csv\ndata/supplement_plan.csv\nassets/exercises/')
     if LOG.exists():
         st.download_button('Export workout_log.csv', LOG.read_bytes(), file_name='workout_log.csv')
