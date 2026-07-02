@@ -1,14 +1,24 @@
-# Brian Fitness Tracker 3.2.3 — Workout Database Repair
+# Brian Fitness Tracker 3.3 — Daily Use Stability Build
 
-This build repairs the master workout database and keeps the weekly plan synchronized.
+This build focuses on stability and daily gym use.
 
-## Fixes
-- Removes Standing Calf Raise from Wednesday — Shoulders + Abs
-- Adds Plank to Wednesday — Shoulders + Abs
-- Keeps calf work on leg / rehab day
-- Adds automatic workout database repair on app startup
+## Added
+- System Check page
+- Workout database validator
+- Image validator
+- One-click backup/export buttons
+- Gym Mode page with larger controls
+- Keeps 3.2.3 workout split repair
 - Keeps top navigation contrast fix
-- Preserves workout logging to data/workout_log.csv
 
-## Important
-Upload the complete `data/` folder to GitHub. The app also auto-repairs older `workouts.csv` files if they still contain the Wednesday calf raise mistake.
+## Important files
+- data/workouts.csv
+- data/workout_log.csv
+- data/exercise_image_map.csv
+- assets/exercises/
+
+Run locally:
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
