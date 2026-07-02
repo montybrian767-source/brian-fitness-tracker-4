@@ -1,26 +1,24 @@
-# Brian Fitness Tracker 2.2 — Nutrition Engine
+# Brian Fitness Tracker 2.3 — Supplement Engine
 
-Adds a nutrition system on top of 2.1 Workout Engine.
+This build extends 2.2 with a more complete supplement tracking system.
 
-## New in 2.2
-- Nutrition Tracker page
-- Calories, protein, carbs, fat, water tracking
-- Body Stats page
-- Supplement checklist page
-- Dashboard nutrition totals
-- Export buttons for nutrition/body/supplement logs
-- Keeps workout engine, images, and `data/workout_log.csv`
+## Added in 2.3
+- Supplement Engine page
+- Daily supplement checklist
+- Magnesium, Vitamin D, and electrolytes added
+- Supplement plan database: `data/supplement_plan.csv`
+- Weekly consistency summary
+- Export for supplement log and supplement plan
+- Keeps nutrition, body stats, workout history, exercise images, and workout builder
+
+## Important Data Files
+- `data/workout_log.csv` — completed workouts
+- `data/nutrition_log.csv` — nutrition entries
+- `data/body_stats.csv` — body stats
+- `data/supplement_log.csv` — supplement history
+- `data/supplement_plan.csv` — supplement plan
 
 ## Run locally
 ```bash
-pip install -r requirements.txt
-streamlit run app.py
+python -m streamlit run app.py
 ```
-
-## Important data files
-- `data/workout_log.csv`
-- `data/nutrition_log.csv`
-- `data/body_stats.csv`
-- `data/supplement_log.csv`
-- `data/workouts.csv`
-- `data/exercise_image_map.csv`
