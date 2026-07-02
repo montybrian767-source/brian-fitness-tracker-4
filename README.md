@@ -1,16 +1,20 @@
-# Brian Fitness Tracker 2.5.1 — UI Repair
+# Brian Fitness Tracker 3.0 — AI Coach
 
-This repair build rolls back to the more stable 2.4 layout while keeping the improved supplement visibility.
+This build adds a rule-based AI Coach page without requiring an API key.
 
-## Fixes
-- Removes the rough 2.5 Gym Mode styling
-- Restores the stable 2.4 page structure
-- Adds brighter supplement cards
-- Keeps progress analytics
-- Keeps nutrition/body/supplement tracking
-- Keeps saving workouts to `data/workout_log.csv`
+## Added
+- AI Coach dashboard
+- Suggested next weights
+- Increase / hold / decrease recommendations
+- Knee pain safety alerts
+- Muscle group balance
+- Nutrition and hydration coach notes
+- Exportable AI recommendations
 
-## Upload to GitHub
-Upload everything inside this folder to your repository. Do not upload the ZIP itself.
+## Data Safety
+Workout history remains in `data/workout_log.csv`.
 
-Important: keep your existing `data/workout_log.csv` if you already have workout history.
+## Run Locally
+```bash
+python -m streamlit run app.py
+```
