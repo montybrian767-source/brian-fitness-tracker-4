@@ -1,10 +1,19 @@
 import streamlit as st
 
+from components.executive_header import executive_header
+from components.mission_card import mission_card
+from components.action_button import start_workout_button
 from components.hero_banner import hero_banner
 from components.stat_card import stat_card
 from components.ai_card import ai_card
 from components.glass_panel import glass_panel
+executive_header()
 
+mission_card()
+
+start_workout_button()
+
+st.divider()
 
 def render_dashboard():
     hero_banner(
