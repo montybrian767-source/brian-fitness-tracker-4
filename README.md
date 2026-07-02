@@ -1,18 +1,14 @@
-# Brian Fitness Tracker 3.2.2 — Workout Split Fix
+# Brian Fitness Tracker 3.2.3 — Workout Database Repair
 
-This maintenance build fixes the Wednesday workout split.
+This build repairs the master workout database and keeps the weekly plan synchronized.
 
-## Fixed
-- Removed Standing Calf Raise from Wednesday Shoulders + Abs
-- Added Plank to Wednesday abs work
-- Keeps calf work on the leg/recovery side of the plan
-- Keeps the 3.2.1 top navigation contrast fix
-- Keeps workout images, nutrition, supplements, AI Coach, and workout logging
+## Fixes
+- Removes Standing Calf Raise from Wednesday — Shoulders + Abs
+- Adds Plank to Wednesday — Shoulders + Abs
+- Keeps calf work on leg / rehab day
+- Adds automatic workout database repair on app startup
+- Keeps top navigation contrast fix
+- Preserves workout logging to data/workout_log.csv
 
-## Important files
-- data/workouts.csv
-- data/workout_log.csv
-- data/exercise_image_map.csv
-- assets/exercises/
-
-Upload all files/folders to GitHub, then reboot/redeploy Streamlit.
+## Important
+Upload the complete `data/` folder to GitHub. The app also auto-repairs older `workouts.csv` files if they still contain the Wednesday calf raise mistake.
