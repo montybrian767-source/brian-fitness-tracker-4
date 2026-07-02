@@ -1,44 +1,40 @@
 import streamlit as st
 
 from components.hero_banner import hero_banner
+from components.stat_card import stat_card
+from components.ai_card import ai_card
+from components.glass_panel import glass_panel
 
-st.set_page_config(layout="wide")
 
-hero_banner()
+def render_dashboard():
+    hero_banner(
+        workout_name="Today’s Focus",
+        recovery="94%",
+        readiness="Excellent",
+        duration="60 min",
+    )
 
-st.markdown("## AI Coach")
+    c1, c2, c3, c4 = st.columns(4)
 
-st.info(
-    "Increase Shoulder Press by 5 lbs today.\n\n"
-    "Protein goal is on track.\n\n"
-    "Recovery looks excellent."
-)
+    with c1:
+        stat_card("Sessions", "0", "#3B82F6")
 
-c1,c2,c3,c4=st.columns(4)
+    with c2:
+        stat_card("Total Volume", "0 lbs", "#22C55E")
 
-with c1:
-    st.metric("Nutrition","91%","+2%")
+    with c3:
+        stat_card("Protein Today", "0g", "#8B5CF6")
 
-with c2:
-    st.metric("Supplements","6 / 7","+1")
+    with c4:
+        stat_card("Calories Today", "0", "#F59E0B")
 
-with c3:
-    st.metric("Workout Streak","18 Days","+1")
+    ai_card()
 
-with c4:
-    st.metric("Weekly Volume","82,400","+4%")
+    glass_panel(
+        "Weekly Focus",
+        "Stay consistent. Complete today’s workout, hit your protein goal, and keep hydration above 100 oz.",
+        "🔥",
+    )
 
-st.divider()
 
-st.subheader("Quick Actions")
-
-a,b,c=st.columns(3)
-
-with a:
-    st.button("💪 Start Workout",use_container_width=True)
-
-with b:
-    st.button("🤖 Open AI Coach",use_container_width=True)
-
-with c:
-    st.button("📅 Weekly Plan",use_container_width=True)
+render_dashboard()
