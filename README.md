@@ -1,18 +1,16 @@
-# Brian Fitness Tracker 2.5 — Gym Mode + Professional UI
+# Brian Fitness Tracker 2.5.1 — UI Repair
 
-Run locally:
+This repair build rolls back to the more stable 2.4 layout while keeping the improved supplement visibility.
 
-```bash
-python -m pip install -r requirements.txt
-python -m streamlit run app.py
-```
+## Fixes
+- Removes the rough 2.5 Gym Mode styling
+- Restores the stable 2.4 page structure
+- Adds brighter supplement cards
+- Keeps progress analytics
+- Keeps nutrition/body/supplement tracking
+- Keeps saving workouts to `data/workout_log.csv`
 
-Streamlit Cloud:
-- Upload all files/folders to GitHub.
-- Main file path: `app.py`
+## Upload to GitHub
+Upload everything inside this folder to your repository. Do not upload the ZIP itself.
 
-Important data files:
-- `data/workouts.csv` = workout plan
-- `data/workout_log.csv` = saved completed workout sets
-- `data/nutrition_log.csv` = nutrition history
-- `data/supplement_log.csv` = supplement history
+Important: keep your existing `data/workout_log.csv` if you already have workout history.
