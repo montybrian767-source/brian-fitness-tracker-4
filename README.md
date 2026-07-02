@@ -1,14 +1,13 @@
-# Brian Fitness Tracker 3.1 — Professional UI Polish
+# Brian Fitness Tracker 3.2 — Mobile Navigation Fix
 
-This build is based on the 3.0 AI Coach version and focuses on visual polish, consistency, and better contrast.
+Fixes the phone navigation issue by adding a phone-friendly navigation menu at the top of the app.
 
-## Added
-- More professional dark navy theme
-- Better card shadows and borders
-- Brighter active navigation and menu controls
-- Cleaner tabs, inputs, buttons, and tables
-- Better supplement color contrast
-- Keeps AI Coach, workout logging, nutrition, supplements, progress, images, and `data/workout_log.csv`
+## What changed
+- Left sidebar is no longer required on phone
+- Added top quick navigation menu
+- Larger tap targets on mobile
+- Brighter active navigation styling
+- Keeps workout logging, AI Coach, nutrition, supplements, progress, images, and data safety
 
 ## Run locally
 ```bash
@@ -16,6 +15,4 @@ python -m streamlit run app.py
 ```
 
 ## Streamlit Cloud
-Upload all extracted files/folders to GitHub, then reboot/redeploy your Streamlit app.
-
-Important: preserve `data/workout_log.csv` if you already have workout history.
+Upload everything inside this folder to GitHub, commit, then reboot/redeploy Streamlit.
