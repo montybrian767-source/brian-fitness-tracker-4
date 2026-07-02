@@ -1,23 +1,26 @@
-# Brian Fitness Tracker 3.3 — Daily Use Stability Build
+# Brian Fitness Tracker X — Sprint X.5 Smart Workout Experience
 
-This build focuses on stability and daily gym use.
+This build is based on the working Sprint X.4.1 dashboard fix and adds a new Smart Workout page.
 
 ## Added
-- System Check page
-- Workout database validator
-- Image validator
-- One-click backup/export buttons
-- Gym Mode page with larger controls
-- Keeps 3.2.3 workout split repair
-- Keeps top navigation contrast fix
+- Smart Workout command center
+- Large exercise image display
+- One-exercise focus workflow
+- Complete Set logging
+- Rest timer panel
+- Previous/next exercise buttons
+- Workout progress bar
+- AI coach notes inside workout flow
+- Export workout log button
 
 ## Important files
-- data/workouts.csv
-- data/workout_log.csv
-- data/exercise_image_map.csv
-- assets/exercises/
+- `app.py`
+- `data/workouts.csv`
+- `data/workout_log.csv`
+- `data/exercise_image_map.csv`
+- `assets/exercises/`
 
-Run locally:
+## Run locally
 ```bash
 pip install -r requirements.txt
 streamlit run app.py

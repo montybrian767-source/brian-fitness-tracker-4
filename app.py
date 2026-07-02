@@ -18,7 +18,7 @@ BODY = DATA / "body_stats.csv"
 SUPPLEMENTS = DATA / "supplement_log.csv"
 SUPPLEMENT_PLAN = DATA / "supplement_plan.csv"
 
-st.set_page_config(page_title="Brian Fitness Tracker 3.3", page_icon="🏋️", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Brian Fitness Tracker X", page_icon="🏋️", layout="wide", initial_sidebar_state="expanded")
 
 def ensure_log():
     if not LOG.exists():
@@ -340,12 +340,19 @@ div[role="radiogroup"] [data-testid="stMarkdownContainer"] {
 .x-week-badge {display:inline-block; margin:12px 0 8px; color:#93C5FD; border:1px solid #2563EB; border-radius:999px; padding:7px 10px; font-size:.78rem; font-weight:900;}
 @media(max-width: 850px){.x-hero{padding:28px 22px}.x-title{font-size:2.2rem}.x-recovery{position:relative; right:auto; top:auto; text-align:left; margin-top:24px}.x-recovery .big{font-size:3rem}.x-mission{grid-template-columns:1fr}.x-ai{grid-template-columns:1fr}.x-ai-mini{border-left:none; padding-left:0; border-top:1px solid rgba(255,255,255,.12); padding-top:14px}}
 
+
+/* Sprint X.5 Smart Workout Experience */
+.smart-shell{background:linear-gradient(135deg,#08111F,#0B1B35);border:1px solid rgba(96,165,250,.45);border-radius:28px;padding:28px;margin:18px 0 24px;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+.smart-top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap}.smart-kicker{letter-spacing:.25em;color:#22C55E;font-size:.78rem;font-weight:950;text-transform:uppercase}.smart-title{font-size:2.7rem;font-weight:950;color:#fff;margin:10px 0 8px}.smart-sub{color:#BFD7FF;font-size:1rem}.smart-score{font-size:3.2rem;font-weight:950;color:#22C55E;text-align:right}.smart-score-label{color:#fff;font-weight:900;letter-spacing:.16em;text-align:right}.smart-card{background:linear-gradient(145deg,#0F1F34,#0A1728);border:1px solid rgba(96,165,250,.32);border-radius:24px;padding:22px;margin:16px 0;box-shadow:0 16px 45px rgba(0,0,0,.32)}
+.smart-photo-box{background:#081322;border:1px solid #1d3655;border-radius:22px;padding:10px;display:flex;align-items:center;justify-content:center;min-height:330px}.smart-photo{width:100%;height:330px;object-fit:contain;border-radius:16px;background:#06111f}.smart-exercise-title{font-size:2rem;color:white;font-weight:950;margin-bottom:8px}.smart-chip{display:inline-block;background:#0B2B4F;border:1px solid #60A5FA;color:#C8DDFF;border-radius:999px;padding:8px 12px;font-weight:900;font-size:.82rem;margin-right:8px;margin-bottom:8px}.smart-chip.green{background:rgba(34,197,94,.13);border-color:#22C55E;color:#B7FFCE}.smart-chip.purple{background:rgba(139,92,246,.16);border-color:#8B5CF6;color:#DDD6FE}.smart-control{background:#0B1E33;border:1px solid #254264;border-radius:18px;padding:16px}.smart-big-value{font-size:2rem;font-weight:950;color:white}.smart-complete{background:linear-gradient(135deg,#22C55E,#16A34A);border-radius:20px;padding:18px;text-align:center;color:white;font-size:1.2rem;font-weight:950;margin-top:14px;box-shadow:0 15px 40px rgba(34,197,94,.35)}
+.smart-timer{background:radial-gradient(circle at center,rgba(34,197,94,.20),rgba(15,31,52,.95));border:1px solid rgba(34,197,94,.50);border-radius:24px;padding:24px;text-align:center}.smart-timer-number{font-size:3.6rem;line-height:1;color:white;font-weight:950}.smart-timer-label{color:#86EFAC;font-weight:950;letter-spacing:.15em;margin-top:8px}.smart-progress{height:14px;background:#132940;border:1px solid #24334A;border-radius:999px;overflow:hidden;margin:14px 0}.smart-progress-fill{height:100%;background:linear-gradient(90deg,#2563EB,#22C55E);border-radius:999px}.smart-ai{background:linear-gradient(135deg,rgba(139,92,246,.22),rgba(15,31,52,.98));border:1px solid rgba(139,92,246,.55);border-radius:22px;padding:20px;color:white}.smart-muted{color:#B8C2D1}.smart-nav-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}@media(max-width:900px){.smart-title{font-size:2rem}.smart-score{text-align:left;font-size:2.5rem}.smart-score-label{text-align:left}.smart-photo,.smart-photo-box{height:250px;min-height:250px}}
+
 </style>
 """
 st.markdown(CSS, unsafe_allow_html=True)
 
 # Navigation — desktop sidebar + phone-friendly top menu
-nav_options = ["Dashboard","Today's Workout","Gym Mode","AI Coach","Workout Builder","Weekly Plan","System Check","Nutrition","Supplements","Body Stats","Progress Analytics","Exercise Library","History","Data Safety"]
+nav_options = ["Dashboard","Today's Workout","Smart Workout","Gym Mode","AI Coach","Workout Builder","Weekly Plan","System Check","Nutrition","Supplements","Body Stats","Progress Analytics","Exercise Library","History","Data Safety"]
 st.sidebar.markdown("## 🏋️ Brian Fit 3.3")
 st.sidebar.caption("Daily Use Stability")
 st.sidebar.markdown('<div class="safe"><b>✅ Data safe</b><br><br><span class="small">Workout history saves to</span><br><b>data/workout_log.csv</b></div>', unsafe_allow_html=True)
@@ -496,6 +503,118 @@ elif page == "Today's Workout":
         st.markdown('</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="side-card"><div class="side-title">Workout Summary</div><div>Total exercises: <b>{len(active)}</b></div><div>Live volume: <b class="volume">{total_live:,} lbs</b></div></div>', unsafe_allow_html=True)
 
+
+
+
+elif page == "Smart Workout":
+    today = date.today().strftime('%A')
+    day = st.selectbox("Workout Day", days, index=date.today().weekday() if date.today().weekday()<7 else 0, key="smart_day")
+    active = workouts[workouts.day == day].reset_index(drop=True)
+    group = active.muscle_group.iloc[0] if not active.empty else "Recovery / Rest"
+    log_now = load_log()
+    completed_today = 0
+    if not log_now.empty and 'date' in log_now.columns and 'day' in log_now.columns:
+        completed_today = len(log_now[(log_now['date'].astype(str) == str(date.today())) & (log_now['day'].astype(str) == day)])
+    progress_pct = 0 if active.empty else min(100, int((completed_today / max(1, len(active) * 3)) * 100))
+    recovery_score = 94
+
+    st.markdown(f'''
+    <div class="smart-shell">
+      <div class="smart-top">
+        <div>
+          <div class="smart-kicker">Brian Fitness Tracker X • Smart Workout</div>
+          <div class="smart-title">{day} — {group}</div>
+          <div class="smart-sub">One command center for today’s training: image, logging, rest timer, progress, and coach notes.</div>
+        </div>
+        <div>
+          <div class="smart-score">{recovery_score}%</div>
+          <div class="smart-score-label">READY</div>
+        </div>
+      </div>
+      <div class="smart-progress"><div class="smart-progress-fill" style="width:{progress_pct}%;"></div></div>
+      <div class="smart-muted">Workout progress: {progress_pct}% • Completed sets today: {completed_today}</div>
+    </div>
+    ''', unsafe_allow_html=True)
+
+    if active.empty:
+        st.success("Recovery day. Use mobility, walking, sauna, swimming, or rest.")
+    else:
+        if 'smart_idx' not in st.session_state:
+            st.session_state.smart_idx = 0
+        st.session_state.smart_idx = max(0, min(int(st.session_state.smart_idx), len(active)-1))
+        pick = st.number_input("Exercise", min_value=1, max_value=len(active), value=st.session_state.smart_idx+1, step=1, key="smart_pick") - 1
+        st.session_state.smart_idx = int(pick)
+        row = active.iloc[st.session_state.smart_idx]
+        sets = int(row.target_sets) if str(row.target_sets).isdigit() else 3
+        target_reps_display = str(row.target_reps)
+        try:
+            reps_default = int(target_reps_display.split('-')[-1].split()[0])
+        except Exception:
+            reps_default = 12
+
+        photo_html = img_tag(image_path(row)).replace('class="exercise-photo"', 'class="smart-photo"')
+        left, right = st.columns([1.05, 1.15])
+        with left:
+            st.markdown(f'<div class="smart-card"><div class="smart-photo-box">{photo_html}</div></div>', unsafe_allow_html=True)
+            st.markdown(f'''
+            <div class="smart-ai">
+              <div class="smart-kicker">AI Coach</div>
+              <div style="font-size:1.35rem;font-weight:950;margin-top:8px;">Today’s Focus</div>
+              <div class="smart-muted" style="margin-top:8px;">Use controlled reps. If pain rises above 3/10, stop the set and reduce load. If all reps feel clean under RPE 8, consider adding weight next time.</div>
+            </div>
+            ''', unsafe_allow_html=True)
+        with right:
+            st.markdown(f'''
+            <div class="smart-card">
+              <div class="smart-exercise-title">{st.session_state.smart_idx+1}. {row.exercise}</div>
+              <span class="smart-chip">Target: {row.target_sets} × {row.target_reps}</span>
+              <span class="smart-chip green">{row.muscle_group}</span>
+              <span class="smart-chip purple">Base: {row.base_weight} lbs</span>
+            </div>
+            ''', unsafe_allow_html=True)
+            c1, c2, c3 = st.columns(3)
+            with c1:
+                wt = st.number_input("Weight", min_value=0.0, value=float(row.base_weight), step=5.0, key=f"smart_w_{st.session_state.smart_idx}")
+            with c2:
+                reps = st.number_input("Reps", min_value=0, value=reps_default, step=1, key=f"smart_r_{st.session_state.smart_idx}")
+            with c3:
+                rpe = st.number_input("RPE", min_value=0.0, max_value=10.0, value=7.0, step=.5, key=f"smart_rpe_{st.session_state.smart_idx}")
+            pain = st.slider("Pain check", 0, 10, 0, key=f"smart_pain_{st.session_state.smart_idx}")
+            notes = st.text_input("Quick notes", value="", placeholder="Form, difficulty, pain, etc.", key=f"smart_notes_{st.session_state.smart_idx}")
+            set_number = st.number_input("Set number", min_value=1, max_value=max(sets, 8), value=1, step=1, key=f"smart_set_{st.session_state.smart_idx}")
+            vol = int(wt * reps)
+            st.markdown(f'''
+            <div class="smart-control">
+              <div class="smart-muted">Current Set Volume</div>
+              <div class="smart-big-value">{vol:,} lbs</div>
+            </div>
+            ''', unsafe_allow_html=True)
+            if st.button("✅ Complete Set", key="smart_complete", use_container_width=True):
+                save_log([{'date':str(date.today()),'day':day,'exercise':row.exercise,'set_number':set_number,'weight_lbs':wt,'reps':reps,'rpe':rpe,'pain':pain,'notes':notes,'volume':vol}])
+                st.success(f"Saved set {set_number} for {row.exercise}. Start your rest timer.")
+
+            st.markdown('<div class="smart-timer"><div class="smart-timer-number">60</div><div class="smart-timer-label">SECONDS REST</div></div>', unsafe_allow_html=True)
+            rest_cols = st.columns(3)
+            rest_cols[0].button("Start 60s", use_container_width=True, key="smart_60")
+            rest_cols[1].button("Start 90s", use_container_width=True, key="smart_90")
+            rest_cols[2].button("Reset", use_container_width=True, key="smart_reset")
+
+        nav1, nav2, nav3 = st.columns(3)
+        with nav1:
+            if st.button("← Previous Exercise", use_container_width=True, disabled=st.session_state.smart_idx <= 0):
+                st.session_state.smart_idx -= 1
+                st.rerun()
+        with nav2:
+            st.download_button("Export Workout Log", LOG.read_bytes(), file_name="workout_log.csv", use_container_width=True)
+        with nav3:
+            if st.button("Next Exercise →", use_container_width=True, disabled=st.session_state.smart_idx >= len(active)-1):
+                st.session_state.smart_idx += 1
+                st.rerun()
+
+        st.markdown("## Today’s Exercise List")
+        for idx, ex in active.iterrows():
+            status = "✅" if idx < st.session_state.smart_idx else ("▶️" if idx == st.session_state.smart_idx else "○")
+            st.markdown(f'<div class="smart-card" style="padding:14px 18px;margin:8px 0;"><b>{status} {idx+1}. {ex.exercise}</b> <span class="smart-muted">• {ex.target_sets} × {ex.target_reps} • {ex.muscle_group}</span></div>', unsafe_allow_html=True)
 
 
 elif page == "Gym Mode":
