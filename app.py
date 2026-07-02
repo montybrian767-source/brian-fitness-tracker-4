@@ -1,4 +1,4 @@
-from pages.dashboard import render_dashboard
+
 from pathlib import Path
 from datetime import date
 import base64
@@ -301,6 +301,45 @@ div[role="radiogroup"] [data-testid="stMarkdownContainer"] {
     opacity: 1 !important;
 }
 
+
+/* X.4.1 Executive Dashboard - stable Streamlit-safe HTML */
+.x-hero {position:relative; overflow:hidden; border:1px solid rgba(59,130,246,.45); background: radial-gradient(circle at 75% 30%, rgba(37,99,235,.35), transparent 32%), linear-gradient(135deg,#08111F 0%,#0B1B35 55%,#0B1220 100%); border-radius:28px; padding:38px 42px; margin:18px 0 26px 0; box-shadow:0 25px 70px rgba(0,0,0,.45);}
+.x-kicker {letter-spacing:.30em; color:#22C55E; font-size:.78rem; font-weight:950; text-transform:uppercase;}
+.x-title {font-size:3.05rem; font-weight:950; color:#fff; line-height:1.02; margin:14px 0 10px 0;}
+.x-subtitle {font-size:1.08rem; color:#BFD7FF; max-width:690px; line-height:1.55;}
+.x-recovery {position:absolute; right:42px; top:34px; text-align:right;}
+.x-recovery .big {font-size:4rem; line-height:1; color:#22C55E; font-weight:950;}
+.x-recovery .label {letter-spacing:.18em; color:#fff; font-weight:900; margin-top:8px;}
+.x-recovery .status {color:#7CFF9B; font-weight:900; margin-top:8px;}
+.x-mission {display:grid; grid-template-columns: 1.2fr .9fr; gap:22px; align-items:center; border:1px solid rgba(59,130,246,.45); background:linear-gradient(135deg,#0D1B2F,#0B1424); border-radius:26px; padding:30px 34px; margin:0 0 22px 0; box-shadow:0 16px 45px rgba(0,0,0,.38);}
+.x-mission-label {color:#60A5FA; font-weight:950; letter-spacing:.20em; text-transform:uppercase; font-size:.78rem;}
+.x-mission-title {font-size:2.35rem; font-weight:950; color:white; margin:10px 0 20px;}
+.x-pills {display:flex; flex-wrap:wrap; gap:14px;}
+.x-pill {background:#10243C; border:1px solid #254264; color:#EAF2FF; border-radius:18px; padding:12px 16px; font-weight:850;}
+.x-pill.green {background:rgba(34,197,94,.13); border-color:rgba(34,197,94,.55);}
+.x-pill.blue {background:rgba(59,130,246,.14); border-color:rgba(59,130,246,.58);}
+.x-pill.amber {background:rgba(245,158,11,.12); border-color:rgba(245,158,11,.55);}
+.x-start {background:linear-gradient(135deg,#0EA5E9,#2563EB); border-radius:22px; padding:28px; text-align:center; color:white; font-size:1.35rem; font-weight:950; box-shadow:0 18px 55px rgba(37,99,235,.45); border:1px solid rgba(147,197,253,.65);}
+.x-stat {background:linear-gradient(145deg,#0F1F34,#0A1728); border:1px solid rgba(59,130,246,.30); border-radius:22px; padding:22px; min-height:150px; box-shadow:0 16px 40px rgba(0,0,0,.28);}
+.x-stat-icon {font-size:2rem; margin-bottom:12px;}
+.x-stat-label {color:#B8C2D1; font-size:.82rem; letter-spacing:.10em; text-transform:uppercase; font-weight:900;}
+.x-stat-value {font-size:2rem; font-weight:950; color:white; margin-top:6px;}
+.x-stat-sub {color:#9CC7FF; font-size:.9rem; margin-top:8px;}
+.x-progress {height:9px; background:#142842; border-radius:999px; overflow:hidden; margin-top:15px; border:1px solid #24334A;}
+.x-progress-fill {height:100%; border-radius:999px; background:linear-gradient(90deg,#2563EB,#22C55E);}
+.x-ai {display:grid; grid-template-columns: 1fr .55fr .55fr; gap:18px; background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(15,31,52,.96)); border:1px solid rgba(139,92,246,.45); border-radius:24px; padding:24px 28px; margin:24px 0; box-shadow:0 16px 45px rgba(0,0,0,.32);}
+.x-ai-kicker {color:#A78BFA; font-size:.78rem; letter-spacing:.18em; font-weight:950; text-transform:uppercase;}
+.x-ai-title {font-size:1.65rem; font-weight:950; color:#fff; margin-top:8px;}
+.x-ai-sub {color:#C8D3E6; margin-top:6px;}
+.x-ai-mini {border-left:1px solid rgba(255,255,255,.12); padding-left:18px;}
+.x-ai-mini .ok {color:#22C55E; font-weight:950; font-size:1.1rem;}
+.x-ai-mini .warn {color:#F59E0B; font-weight:950; font-size:1.1rem;}
+.x-week {background:#0F1F34; border:1px solid #254264; border-radius:20px; padding:18px; min-height:150px; box-shadow:0 12px 32px rgba(0,0,0,.22);}
+.x-week.today {border-color:#22C55E; box-shadow:0 0 28px rgba(34,197,94,.18);}
+.x-week-day {font-size:1.1rem; font-weight:950; color:white;}
+.x-week-badge {display:inline-block; margin:12px 0 8px; color:#93C5FD; border:1px solid #2563EB; border-radius:999px; padding:7px 10px; font-size:.78rem; font-weight:900;}
+@media(max-width: 850px){.x-hero{padding:28px 22px}.x-title{font-size:2.2rem}.x-recovery{position:relative; right:auto; top:auto; text-align:left; margin-top:24px}.x-recovery .big{font-size:3rem}.x-mission{grid-template-columns:1fr}.x-ai{grid-template-columns:1fr}.x-ai-mini{border-left:none; padding-left:0; border-top:1px solid rgba(255,255,255,.12); padding-top:14px}}
+
 </style>
 """
 st.markdown(CSS, unsafe_allow_html=True)
@@ -319,31 +358,103 @@ log = load_log()
 days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 
 if page == "Dashboard":
-    render_dashboard()
     today = date.today().strftime('%A')
-    today_df = workouts[workouts.day==today]
+    today_df = workouts[workouts.day == today]
+    focus = today_df.muscle_group.iloc[0] if not today_df.empty else "Recovery / Rest"
     total_sessions = log['date'].nunique() if not log.empty and 'date' in log else 0
     total_volume = int(pd.to_numeric(log.get('volume', pd.Series(dtype=float)), errors='coerce').fillna(0).sum()) if not log.empty else 0
     installed = len(list(ASSETS.glob('*.png'))) + len(list(ASSETS.glob('*.jpg')))
     nut = read_csv_safe(NUTRITION, ['date','meal','calories','protein_g','carbs_g','fat_g','water_oz','notes'])
     today_s = str(date.today())
-    nt = nut[nut['date'].astype(str)==today_s] if not nut.empty else nut
+    nt = nut[nut['date'].astype(str) == today_s] if not nut.empty else nut
     cal_today = int(pd.to_numeric(nt.get('calories', pd.Series(dtype=float)), errors='coerce').fillna(0).sum()) if not nt.empty else 0
     protein_today = int(pd.to_numeric(nt.get('protein_g', pd.Series(dtype=float)), errors='coerce').fillna(0).sum()) if not nt.empty else 0
     water_today = int(pd.to_numeric(nt.get('water_oz', pd.Series(dtype=float)), errors='coerce').fillna(0).sum()) if not nt.empty else 0
-    st.markdown(f'<div class="hero"><div class="kicker">Brian Fitness Tracker 3.3</div><div class="title">Nutrition + Workout Dashboard</div><div class="sub">Today is {today} • {today_df.muscle_group.iloc[0] if not today_df.empty else "Rest / Recovery"}</div></div>', unsafe_allow_html=True)
-    c1,c2,c3,c4=st.columns(4)
-    for c,label,val in [(c1,'Sessions',total_sessions),(c2,'Total Volume',f'{total_volume:,} lbs'),(c3,'Protein Today',f'{protein_today}g'),(c4,'Calories Today',cal_today)]:
-        c.markdown(f'<div class="metric-card"><div class="metric-label">{label}</div><div class="metric-value">{val}</div></div>', unsafe_allow_html=True)
-    c5,c6=st.columns(2)
-    c5.markdown(f'<div class="macro-card"><div class="metric-label">Water Today</div><div class="metric-value">{water_today} oz</div><div class="goalbar"><div class="goalfill" style="width:{min(100, water_today/100*100):.0f}%"></div></div><div class="small">Goal: 100 oz</div></div>', unsafe_allow_html=True)
-    c6.markdown(f'<div class="macro-card"><div class="metric-label">Image Library</div><div class="metric-value">{installed}</div><div class="small">Exercise images installed</div></div>', unsafe_allow_html=True)
+    protein_pct = min(100, int((protein_today / 160) * 100)) if protein_today else 0
+    water_pct = min(100, int((water_today / 100) * 100)) if water_today else 0
+    calorie_pct = min(100, int((cal_today / 2800) * 100)) if cal_today else 0
+    recovery_score = 94
+    status = "Excellent" if recovery_score >= 85 else "Good"
+    ai_weight_tip = "+5 lb" if total_sessions > 0 else "Build consistency"
+
+    st.markdown(f'''
+    <div class="x-hero">
+        <div class="x-kicker">Brian Fitness Tracker X</div>
+        <div class="x-title">Good Morning Brian</div>
+        <div class="x-subtitle">You are building consistency. Today is <b>{today}</b> • <b>{focus}</b>. Make the next action obvious and keep moving forward.</div>
+        <div class="x-recovery">
+            <div class="big">{recovery_score}%</div>
+            <div class="label">RECOVERY</div>
+            <div class="status">● {status}</div>
+        </div>
+    </div>
+    ''', unsafe_allow_html=True)
+
+    st.markdown(f'''
+    <div class="x-mission">
+        <div>
+            <div class="x-mission-label">Today's Mission</div>
+            <div class="x-mission-title">{focus}</div>
+            <div class="x-pills">
+                <div class="x-pill green">Recovery: <b>{recovery_score}%</b></div>
+                <div class="x-pill blue">Status: <b>Ready To Train</b></div>
+                <div class="x-pill amber">Estimated Time: <b>58 min</b></div>
+            </div>
+        </div>
+        <div class="x-start">💪 START TODAY'S WORKOUT</div>
+    </div>
+    ''', unsafe_allow_html=True)
+
+    c1, c2, c3, c4, c5 = st.columns(5)
+    cards = [
+        (c1, "🔥", "Calories", f"{cal_today:,}", "/ 2,800 kcal", calorie_pct, "#A855F7"),
+        (c2, "💪", "Protein", f"{protein_today}g", "/ 160g", protein_pct, "#22C55E"),
+        (c3, "💧", "Water", f"{water_today} oz", "/ 100 oz", water_pct, "#3B82F6"),
+        (c4, "⚡", "Streak", f"{total_sessions}", "sessions", min(100,total_sessions*10), "#F59E0B"),
+        (c5, "🏋️", "Volume", f"{total_volume:,}", "lbs lifted", 70 if total_volume else 0, "#8B5CF6"),
+    ]
+    for col, icon, label, value, sub, pct, color in cards:
+        col.markdown(f'''
+        <div class="x-stat">
+            <div class="x-stat-icon">{icon}</div>
+            <div class="x-stat-label">{label}</div>
+            <div class="x-stat-value">{value}</div>
+            <div class="x-stat-sub">{sub}</div>
+            <div class="x-progress"><div class="x-progress-fill" style="width:{pct}%; background:linear-gradient(90deg,{color},#60A5FA);"></div></div>
+        </div>
+        ''', unsafe_allow_html=True)
+
+    st.markdown(f'''
+    <div class="x-ai">
+        <div>
+            <div class="x-ai-kicker">AI Coach Recommendation</div>
+            <div class="x-ai-title">{('Increase Shoulder Press ' + ai_weight_tip) if total_sessions else 'Complete today’s workout and log every set'}</div>
+            <div class="x-ai-sub">Focus on controlled reps, protect the knee, and finish with clean notes so the coach gets smarter.</div>
+        </div>
+        <div class="x-ai-mini">
+            <div class="x-ai-kicker">Protein Intake</div>
+            <div class="ok">{'On Track' if protein_pct >= 80 else 'Below Goal'}</div>
+        </div>
+        <div class="x-ai-mini">
+            <div class="x-ai-kicker">Hydration</div>
+            <div class="{'ok' if water_pct >= 80 else 'warn'}">{'On Track' if water_pct >= 80 else 'Below Goal'}</div>
+        </div>
+    </div>
+    ''', unsafe_allow_html=True)
+
     st.markdown("## Weekly Schedule")
-    cols=st.columns(7)
-    for col,day in zip(cols,days):
-        d=workouts[workouts.day==day]
-        group=d.muscle_group.iloc[0] if not d.empty else 'Rest'
-        col.markdown(f'<div class="metric-card"><div class="metric-value" style="font-size:1.1rem">{day[:3]}</div><div class="badge">{group}</div><div class="small">{len(d)} exercises</div></div>', unsafe_allow_html=True)
+    cols = st.columns(7)
+    for col, day in zip(cols, days):
+        d = workouts[workouts.day == day]
+        group = d.muscle_group.iloc[0] if not d.empty else 'Rest'
+        today_class = ' today' if day == today else ''
+        col.markdown(f'''
+        <div class="x-week{today_class}">
+            <div class="x-week-day">{day[:3]}</div>
+            <div class="x-week-badge">{group}</div>
+            <div class="small">{len(d)} exercises</div>
+        </div>
+        ''', unsafe_allow_html=True)
 
 elif page == "Today's Workout":
     day = st.selectbox("Workout Day", days, index=date.today().weekday() if date.today().weekday()<7 else 0)
